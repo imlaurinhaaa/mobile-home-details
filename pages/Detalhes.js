@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react"; 
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-import * as SecureStore from "expo-secure-store";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 const TextoExibido = ({ titulo, texto, cor }) => (
     <Text style={[styles.texto, { color: cor }]}>
@@ -8,63 +6,18 @@ const TextoExibido = ({ titulo, texto, cor }) => (
     </Text>
 );
 
-export default function HomeScreen({ navigation }) {
-    const [texto, setTexto] = useState("");
-    const [textoPersistido, setTextoPersistido] = useState("");
-    const [textoSalvoSemPersistencia, setTextoSalvoSemPersistencia] = useState("");
-
-    useEffect(() => {
-        const carregarTextoPersistido = async () => {
-            const textoSalvo = await SecureStore.getItemAsync("meuTexto");
-            if (textoSalvo) {
-                setTextoPersistido(textoSalvo);
-            }
-        };
-        carregarTextoPersistido();
-    }, []);
-
-    const salvarTexto = async () => {
-        if (!texto.trim()) {
-            alert("Por favor, insira algo.");
-            return;
-        }
-        await SecureStore.setItemAsync("meuTexto", texto);
-        setTextoPersistido(texto);
-        setTextoSalvoSemPersistencia(texto);
-        setTexto("");
-    };
-
-    const limparTexto = async () => {
-        await SecureStore.deleteItemAsync("meuTexto");
-        setTextoPersistido("");
-        setTextoSalvoSemPersistencia("");
-        alert("Texto apagado da persistência!");
-    };
+export default function DetalhesScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Persistência e Navegação</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Digite algo"
-                value={texto}
-                onChangeText={setTexto}
-            />
 
-            <TextoExibido titulo="Sem persistência" texto={textoSalvoSemPersistencia} cor="red" />
-            <TextoExibido titulo="Texto persistido" texto={textoPersistido} cor="green" />
-
-            <TouchableOpacity style={styles.botao} onPress={salvarTexto}>
-                <Text style={styles.textoBotao}>Salvar</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.botao} onPress={limparTexto}>
-                <Text style={styles.textoBotao}>Limpar</Text>
-            </TouchableOpacity>
+            <TextoExibido titulo="Sem persistência" cor="red" />
+            <TextoExibido titulo="Texto persistido" cor="green" />
 
             <TouchableOpacity
                 style={styles.botao}
-                onPress={() => navigation.navigate("Pessoal", { textoNaoPersistido: textoSalvoSemPersistencia })}
+                onPress={() => navigation.navigate("Pessoal")}
             >
                 <Text style={styles.textoBotao}>Pessoal</Text>
             </TouchableOpacity>
@@ -83,13 +36,6 @@ const styles = StyleSheet.create({
     titulo: {
         fontSize: 32,
         textAlign: "center",
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: "#7954A1",
-        borderRadius: 8,
-        padding: 10,
-        fontSize: 20,
     },
     texto: {
         fontSize: 20,
