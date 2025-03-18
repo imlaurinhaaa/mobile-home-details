@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         paddingVertical: 100,
         paddingHorizontal: 25,
         gap: 20,
-        backgroundColor: "#EFEBE0",
+        backgroundColor: "#EFDCF9",
     },
     titulo: {
         fontSize: 32,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
-        borderColor: "#391306",
+        borderColor: "#7954A1",
         borderRadius: 8,
         padding: 10,
         fontSize: 20,
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
     botao: {
-        backgroundColor: "#AA1945",
+        backgroundColor: "#C55FFC",
         padding: 10,
         borderRadius: 8,
         alignItems: "center",
