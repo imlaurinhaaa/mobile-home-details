@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
+import { Image } from 'expo-image';
 
 
 export default function PessoalScreen() {
@@ -6,6 +7,7 @@ export default function PessoalScreen() {
     return (
         <View style={styles.container}>
             <Text style={styles.titulo}>Laura Ferreira Violla</Text>
+            <Image source={require('../assets/IMG_20231002_155028.jpg')} />
             <Text style={styles.emojis}>🌷✨🤍</Text>
             <Text style={styles.texto}>Sou aluna da instituição SENAI e realizo o curso Desenvolvimento de Sistemas</Text>
             <Text style={styles.texto}>Estou no 3° ano do curso e tenho 17 anos</Text>
