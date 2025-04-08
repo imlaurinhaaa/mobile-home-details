@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation }) {
         };
         carregarTextoPersistido();
     }, []);
-
+    
     const salvarTexto = async () => {
         if (!texto.trim()) {
             alert("Por favor, insira algo.");
@@ -31,6 +31,7 @@ export default function HomeScreen({ navigation }) {
         await SecureStore.setItemAsync("meuTexto", texto);
         setTextoPersistido(texto);
         setTextoSalvoSemPersistencia(texto);
+        console.log("Texto salvo:", { textoPersistido: texto, textoNaoPersistido: texto });
         setTexto("");
     };
 
@@ -63,11 +64,17 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
 
             <TouchableOpacity
-                style={styles.botao}
-                onPress={() => navigation.navigate("Detalhes", { textoNaoPersistido: textoSalvoSemPersistencia })}
-            >
-                <Text style={styles.textoBotao}>Detalhes</Text>
-            </TouchableOpacity>
+    style={styles.botao}
+    onPress={() => {
+        // Certifique-se de que os valores estão atualizados
+        navigation.navigate("Detalhes", {
+            textoNaoPersistido: textoSalvoSemPersistencia,
+            textoPersistido: textoPersistido,
+        });
+    }}
+>
+    <Text style={styles.textoBotao}>Detalhes</Text>
+</TouchableOpacity>
         </View>
     );
 }

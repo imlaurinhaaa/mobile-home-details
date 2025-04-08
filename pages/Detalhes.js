@@ -1,4 +1,6 @@
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import * as SecureStore from "expo-secure-store";
 
 const TextoExibido = ({ titulo, texto, cor }) => (
     <Text style={[styles.texto, { color: cor }]}>
@@ -6,21 +8,15 @@ const TextoExibido = ({ titulo, texto, cor }) => (
     </Text>
 );
 
-export default function DetalhesScreen({ navigation }) {
+export default function DetalhesScreen({ route }) {
+
+    const { textoNaoPersistido, textoPersistido } = route.params || {};
 
     return (
         <View style={styles.container}>
-            <Text style={styles.titulo}>Persistência e Navegação</Text>
-
-            <TextoExibido titulo="Sem persistência" cor="red" />
-            <TextoExibido titulo="Texto persistido" cor="green" />
-
-            <TouchableOpacity
-                style={styles.botao}
-                onPress={() => navigation.navigate("Pessoal")}
-            >
-                <Text style={styles.textoBotao}>Pessoal</Text>
-            </TouchableOpacity>
+            <Text style={styles.titulo}>Detalhes</Text>
+            <TextoExibido titulo="Sem persistência" texto={textoNaoPersistido} cor="red" />
+            <TextoExibido titulo="Persistência" texto={textoPersistido} cor="green" />
         </View>
     );
 }
@@ -40,15 +36,5 @@ const styles = StyleSheet.create({
     texto: {
         fontSize: 20,
         textAlign: "center",
-    },
-    botao: {
-        backgroundColor: "#C55FFC",
-        padding: 10,
-        borderRadius: 8,
-        alignItems: "center",
-    },
-    textoBotao: {
-        color: "white",
-        fontSize: 20,
     },
 });
